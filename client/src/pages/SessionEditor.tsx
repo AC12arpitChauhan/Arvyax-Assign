@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+const API = import.meta.env.VITE_API_BASE_URL;
 
 const SessionEditor: React.FC = () => {
   const location = useLocation();
@@ -18,7 +19,7 @@ const SessionEditor: React.FC = () => {
     try {
       if (!sessionId) return;
       const token = localStorage.getItem('token');
-      const res = await axios.get(`http://localhost:5001/api/my-sessions/${sessionId}`, {
+      const res = await axios.get(`${API}/my-sessions/${sessionId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -48,7 +49,7 @@ const SessionEditor: React.FC = () => {
         };
         if (sessionId) payload.id = sessionId;
 
-        await axios.post('http://localhost:5001/api/my-sessions/save-draft', payload, {
+        await axios.post(`${API}/my-sessions/save-draft`, payload, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -83,9 +84,9 @@ const SessionEditor: React.FC = () => {
         jsonUrl: jsonUrl || '<placeholder>',
       };
 
-      await axios.post('http://localhost:5001/api/my-sessions/save-draft', draftPayload, { headers });
+      await axios.post(`${API}/my-sessions/save-draft`, draftPayload, { headers });
 
-      const response = await axios.post('http://localhost:5001/api/my-sessions/publish', { id: sessionId }, { headers });
+      const response = await axios.post(`{API}/my-sessions/publish`, { id: sessionId }, { headers });
 
       setSessionStatus('published');
       console.log('Published successfully:', response.data.message);

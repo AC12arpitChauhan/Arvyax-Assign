@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+const API = import.meta.env.VITE_API_BASE_URL;
 
 interface Session {
   _id: string;
@@ -18,7 +19,7 @@ const MySessions: React.FC = () => {
     const fetchMySessions = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5001/api/my-sessions', {
+        const res = await axios.get(`${API}/my-sessions`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -52,7 +53,7 @@ const MySessions: React.FC = () => {
               try {
                 const token = localStorage.getItem('token');
                 const res = await axios.post(
-                  'http://localhost:5001/api/my-sessions/save-draft',
+                  `${API}/my-sessions/save-draft`,
                   { title: '', tags: [], jsonUrl: '' },
                   {
                     headers: {

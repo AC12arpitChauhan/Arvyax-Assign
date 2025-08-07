@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+const API = import.meta.env.VITE_API_BASE_URL;
 
 interface Session {
   _id: string;
@@ -18,7 +19,7 @@ const Dashboard: React.FC = () => {
     const fetchSessions = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5001/api/sessions', {
+        const res = await axios.get(`${API}/sessions`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
