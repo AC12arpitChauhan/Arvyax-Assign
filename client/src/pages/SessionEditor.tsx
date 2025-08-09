@@ -86,7 +86,7 @@ const SessionEditor: React.FC = () => {
 
       await axios.post(`${API}/my-sessions/save-draft`, draftPayload, { headers });
 
-      const response = await axios.post(`{API}/my-sessions/publish`, { id: sessionId }, { headers });
+      const response = await axios.post(`${API}/my-sessions/publish`, { id: sessionId }, { headers });
 
       setSessionStatus('published');
       console.log('Published successfully:', response.data.message);
